@@ -10,7 +10,7 @@ import pickle
 class LakhPianoroll(Dataset):
     def __init__(self, data_dir):
         print('loading pianoroll paths...')
-        fp = '/Users/ketanagrawal/CS236/final_proj/ddim/paths.pkl'
+        fp = '/Users/ketanagrawal/cs236_final_proj/ddim/paths.pkl'
         if False:
             with open(fp, 'rb') as f:
                 self.data_fps = pickle.load(f)

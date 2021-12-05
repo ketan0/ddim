@@ -10,7 +10,7 @@ import pickle
 class LakhPianoroll(Dataset):
     def __init__(self, data_dir):
         print('loading pianoroll paths...')
-        fp = '/Users/ketanagrawal/cs236_final_proj/ddim/paths.pkl'
+        fp = '/home/ketanagrawal/ddim/paths.pkl'
         if False:
             with open(fp, 'rb') as f:
                 self.data_fps = pickle.load(f)
@@ -20,8 +20,8 @@ class LakhPianoroll(Dataset):
                 pickle.dump(self.data_fps, f)
 
     def __len__(self):
-        # return len(self.data_fps)
-        return 100
+        return len(self.data_fps)
+        # return 100
     def __getitem__(self, index):
         pianoroll = np.load(self.data_fps[index])
         pianoroll = np.expand_dims(pianoroll, axis=0)

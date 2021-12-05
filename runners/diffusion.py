@@ -222,6 +222,8 @@ class Diffusion(object):
                 name = "cifar10"
             elif self.config.data.dataset == "LSUN":
                 name = f"lsun_{self.config.data.category}"
+            elif self.config.data.dataset == "LPD":
+                name = "lpd"
             else:
                 raise ValueError
             ckpt = get_ckpt_path(f"ema_{name}")
@@ -356,6 +358,7 @@ class Diffusion(object):
             from functions.denoising import generalized_steps
 
             xs = generalized_steps(x, seq, model, self.betas, eta=self.args.eta)
+
             x = xs
         elif self.args.sample_type == "ddpm_noisy":
             if self.args.skip_type == "uniform":

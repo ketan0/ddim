@@ -21,6 +21,7 @@ CKPT_MAP = {
     "ema_lsun_cat": "ema_diffusion_lsun_cat_model/model-1761000.ckpt",
     "lsun_church": "diffusion_lsun_church_model/model-4432000.ckpt",
     "ema_lsun_church": "ema_diffusion_lsun_church_model/model-4432000.ckpt",
+    "ema_lpd": "/home/ketanagrawal/ddim/logs/lpd_baseline/ckpt_1.pth",
 }
 MD5_MAP = {
     "cifar10": "82ed3067fd1002f5cf4c339fb80c4669",
@@ -55,7 +56,7 @@ def md5_hash(path):
 def get_ckpt_path(name, root=None, check=False):
     if 'church_outdoor' in name:
         name = name.replace('church_outdoor', 'church')
-    assert name in URL_MAP
+    # assert name in URL_MAP
     # Modify the path when necessary
     cachedir = os.environ.get("XDG_CACHE_HOME", os.path.expanduser("/atlas/u/tsong/.cache"))
     root = (
@@ -63,7 +64,10 @@ def get_ckpt_path(name, root=None, check=False):
         if root is not None
         else os.path.join(cachedir, "diffusion_models_converted")
     )
-    path = os.path.join(root, CKPT_MAP[name])
+    if name == 'ema_lpd':
+        path = CKPT_MAP[name]
+    else:
+        path = os.path.join(root, CKPT_MAP[name])
     if not os.path.exists(path) or (check and not md5_hash(path) == MD5_MAP[name]):
         print("Downloading {} model from {} to {}".format(name, URL_MAP[name], path))
         download(URL_MAP[name], path)

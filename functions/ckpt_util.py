@@ -21,7 +21,7 @@ CKPT_MAP = {
     "ema_lsun_cat": "ema_diffusion_lsun_cat_model/model-1761000.ckpt",
     "lsun_church": "diffusion_lsun_church_model/model-4432000.ckpt",
     "ema_lsun_church": "ema_diffusion_lsun_church_model/model-4432000.ckpt",
-    "ema_lpd": "/home/ketanagrawal/ddim/logs/lpd_baseline/ckpt_1.pth",
+    "ema_lpd": "/home/ketanagrawal/ddim/logs/lpd_improved/ckpt.pth",
 }
 MD5_MAP = {
     "cifar10": "82ed3067fd1002f5cf4c339fb80c4669",

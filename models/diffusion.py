@@ -200,7 +200,7 @@ class TransformerModel(nn.Module):
         # x: (batch_size, seq_len, embed_dim)
         # t: (batch_size, 1)
         # print('initial x shape:', x.shape)
-        temb = get_timestep_embedding(torch.arange(self.seq_len), self.embed_channels)
+        temb = get_timestep_embedding(torch.arange(self.seq_len).to(x.device), self.embed_channels)
         temb = temb[None, :, :]
         assert temb.shape[1:] == (self.seq_len, self.embed_channels), temb.shape
         x = self.in_to_emb(x.float())

@@ -3,7 +3,7 @@ import torch
 
 def compute_alpha(beta, t):
     beta = torch.cat([torch.zeros(1).to(beta.device), beta], dim=0)
-    a = (1 - beta).cumprod(dim=0).index_select(0, t + 1).view(-1, 1, 1, 1)
+    a = (1 - beta).cumprod(dim=0).index_select(0, t + 1).view(-1, 1, 1)
     return a
 
 
@@ -60,7 +60,7 @@ def ddpm_steps(x, seq, model, b, **kwargs):
             mean = mean_eps
             noise = torch.randn_like(x)
             mask = 1 - (t == 0).float()
-            mask = mask.view(-1, 1, 1, 1)
+            mask = mask.view(-1, 1, 1)
             logvar = beta_t.log()
             sample = mean + mask * torch.exp(0.5 * logvar) * noise
             xs.append(sample.to('cpu'))

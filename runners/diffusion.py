@@ -194,6 +194,7 @@ class Diffusion(object):
 
         if not self.args.use_pretrained:
             if getattr(self.config.sampling, "ckpt_id", None) is None:
+                print('loading sample from place...')
                 states = torch.load(
                     os.path.join(self.args.log_path, "ckpt.pth"),
                     map_location=self.config.device,
@@ -255,11 +256,17 @@ class Diffusion(object):
                 range(n_rounds), desc="Generating image samples for FID evaluation."
             ):
                 n = config.sampling.batch_size
+                # x = torch.randn(
+                #     n,
+                #     config.data.channels,
+                #     config.data.image_size,
+                #     config.data.image_size,
+                #     device=self.device,
+                # )
                 x = torch.randn(
                     n,
-                    config.data.channels,
-                    config.data.image_size,
-                    config.data.image_size,
+                    config.transformer.seq_len,
+                    config.transformer.input_channels,
                     device=self.device,
                 )
 
@@ -275,11 +282,17 @@ class Diffusion(object):
     def sample_sequence(self, model):
         config = self.config
 
+        # x = torch.randn(
+        #     8,
+        #     config.data.channels,
+        #     config.data.image_size,
+        #     config.data.image_size,
+        #     device=self.device,
+        # )
         x = torch.randn(
             8,
-            config.data.channels,
-            config.data.image_size,
-            config.data.image_size,
+            config.transformer.seq_len,
+            config.transformer.input_channels,
             device=self.device,
         )
 
@@ -305,18 +318,30 @@ class Diffusion(object):
                 + torch.sin(alpha * theta) / torch.sin(theta) * z2
             )
 
+        # z1 = torch.randn(
+        #     1,
+        #     config.data.channels,
+        #     config.data.image_size,
+        #     config.data.image_size,
+        #     device=self.device,
+        # )
         z1 = torch.randn(
             1,
-            config.data.channels,
-            config.data.image_size,
-            config.data.image_size,
+            config.transformer.seq_len,
+            config.transformer.input_channels,
             device=self.device,
         )
+        # z2 = torch.randn(
+        #     1,
+        #     config.data.channels,
+        #     config.data.image_size,
+        #     config.data.image_size,
+        #     device=self.device,
+        # )
         z2 = torch.randn(
             1,
-            config.data.channels,
-            config.data.image_size,
-            config.data.image_size,
+            config.transformer.seq_len,
+            config.transformer.input_channels,
             device=self.device,
         )
         alpha = torch.arange(0.0, 1.01, 0.1).to(z1.device)

@@ -8,7 +8,7 @@ import tqdm
 import torch
 import torch.utils.data as data
 
-from models.diffusion import Model
+from models.diffusion import TransformerModel as Model
 from models.ema import EMAHelper
 from functions import get_optimizer
 from functions.losses import loss_registry

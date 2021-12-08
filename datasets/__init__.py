@@ -5,7 +5,7 @@ import torchvision.transforms as transforms
 import torchvision.transforms.functional as F
 from torchvision.datasets import CIFAR10
 from datasets.celeba import CelebA
-from datasets.lpd import LakhPianoroll
+from datasets.lpd import LakhPianorollEmbed
 # from datasets.ffhq import FFHQ
 # from datasets.lsun import LSUN
 from torch.utils.data import Subset
@@ -60,8 +60,9 @@ def get_dataset(args, config):
         )
 
     elif config.data.dataset == "LPD":
-        dataset = LakhPianoroll(
-            os.path.join(args.exp, "datasets", "lpd_square_data"),
+        dataset = LakhPianorollEmbed(
+            # os.path.join(args.exp, "datasets", "lpd_toy_data.npy"),
+            os.path.join(args.exp, "datasets", "contexts.npy"),
         )
         test_dataset = None # For now
 
